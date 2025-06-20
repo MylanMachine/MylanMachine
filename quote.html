@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote - Mylan Machine LLC</title>
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #e0e0e0;
+        }
+
+        /* Header & Navigation */
+        .fixed-header {
+            background: linear-gradient(90deg, #0a0a0a 0%, #1f1f1f 50%, #0a0a0a 100%);
+            color: #e0e0e0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fixed-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #ff6b35;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+
+        nav {
+            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+            padding: 15px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 200px);
+            padding: 60px 0;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="hexagon" width="50" height="43.3" patternUnits="userSpaceOnUse"><polygon points="25,0 43.3,12.5 43.3,31.2 25,43.3 6.7,31.2 6.7,12.5" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="200" height="200" fill="url(%23hexagon)"/></svg>');
+            opacity: 0.1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-section {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255, 107, 53, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 107, 53, 0.05) 50%, transparent 100%);
+            border-radius: 15px;
+        }
+
+        .quote-section h2 {
+            font-size: 2.5em;
+            color: #ff6b35;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #b0b0b0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .email-template {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid #333;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .email-template::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+        }
+
+        .email-header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .email-field {
+            display: flex;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .email-label {
+            color: #ff6b35;
+            font-weight: bold;
+            min-width: 80px;
+        }
+
+        .email-value {
+            color: #e0e0e0;
+            flex: 1;
+        }
+
+        .email-body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        .required-info {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+            border-radius: 10px;
+            padding: 30px;
+            border-left: 4px solid #ff6b35;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .required-info h3 {
+            color: #ff6b35;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .info-item h4 {
+            color: #ff6b35;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .info-item p {
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #1f1f1f 0%, #2d2d2d 100%);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f7931e, #ff6b35);
+        }
+
+        .contact-info h3 {
+            color: #ff6b35;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .email-link {
+            font-size: 1.5em;
+            color: #f7931e;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: 2px solid #f7931e;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: rgba(247, 147, 30, 0.1);
+        }
+
+        .email-link:hover {
+            background: #f7931e;
+            color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(247, 147, 30, 0.3);
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid #333;
+        }
+
+        .tips-section h3 {
+            color: #ff6b35;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tips-list li::before {
+            content: '⚙️';
+            margin-right: 10px;
+            color: #ff6b35;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #0a0a0a 0%, #1f1f1f 50%, #0a0a0a 100%);
+            color: #b0b0b0;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+            position: relative;
+            z-index: 2;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #ff6b35 50%, transparent 100%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul li a {
+                font-size: 1em;
+            }
+
+            .quote-section {
+                padding: 25px;
+            }
+
+            .quote-section h2 {
+                font-size: 2em;
+            }
+
+            .email-template, .required-info, .contact-info {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .email-link {
+                font-size: 1.2em;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            nav {
+                padding: 10px 0;
+            }
+
+            .quote-section h2 {
+                font-size: 1.6em;
+            }
+
+            .intro-text {
+                font-size: 1em;
+            }
+
+            .email-link {
+                font-size: 1.1em;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Animation for elements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-section, .required-info, .contact-info, .tips-section {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .required-info {
+            animation-delay: 0.2s;
+        }
+
+        .contact-info {
+            animation-delay: 0.4s;
+        }
+
+        .tips-section {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-header">
+        <header>
+            <h1>MYLAN MACHINE LLC</h1>
+            <p>Precision Machined Parts</p>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="socials.html">Connect With Us</a></li>
+                <li><a href="quote.html" class="active">Request a Quote</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="quote-section">
+                <h2>Request a Quote</h2>
+                <div class="intro-text">
+                    Get precise pricing for your custom machined parts. Follow our email template below to ensure you receive the most accurate quote possible. The more detailed information you provide, the better we can serve your manufacturing needs. 
+                    Enter as much information as you have. If you are still in the design process, let us know we may be able to help finalize your design, help shorten lead times or reduce production costs. 
+                </div>
+
+                <div class="email-template">
+                    <div class="email-header">
+                        <div class="email-field">
+                            <span class="email-label">To:</span>
+                            <span class="email-value">andrewmylan@gmx.com</span>
+                        </div>
+                        <div class="email-field">
+                            <span class="email-label">Subject:</span>
+                            <span class="email-value">Quote Request - [Your Part Name/Project]</span>
+                        </div>
+                    </div>
+                    <div class="email-body">
+Dear Mylan Machine Team,<br><br>
+
+I am requesting a quote for machined parts with the following specifications:<br><br>
+
+<strong>PART DETAILS:</strong><br>
+• Part Name: [Specify part name/description]<br>
+• Material: [e.g., Aluminum 6061, Steel 4140, Stainless 316, etc.]<br>
+• Quantity: [Number of parts needed]<br>
+
+
+<strong>PROJECT INFORMATION:</strong><br>
+• Lead Time: [When do you need the parts?]<br>
+• Post Processing: [Anodising, heat treatment, etc.]<br><br>
+
+<strong>ATTACHMENTS:</strong><br>
+• CAD files (STEP, IGES, or DWG)<br>
+• Technical drawings (PDF preferred)<br>
+• Reference photos<br>
+
+
+<strong>CONTACT INFORMATION:</strong><br>
+• Company: [Your company name]<br>
+• Name: [Your company contact]<br>
+• Phone: [Your phone number]<br>
+• Address: [Shipping address]<br><br>
+
+Additional Notes:<br>
+[Any other relevant information about your project]<br><br>
+
+Thank you for your time and consideration. I look forward to hearing from you soon.<br><br>
+
+Best regards,<br>
+[Your Name]
+                    </div>
+                </div>
+            </div>
+
+            <div class="required-info">
+                <h3>Essential Information for Accurate Quotes</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>Technical Drawings</h4>
+                        <p>Provide detailed blueprints with dimensions, tolerances, and specifications. PDF format preferred for clarity and compatibility.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Material Specifications</h4>
+                        <p>Specify exact material grade, hardness requirements, and any special properties needed for your application.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Quantity & Timeline</h4>
+                        <p>Include production quantity and required delivery date. This affects pricing and manufacturing scheduling.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Tolerance Requirements</h4>
+                        <p>Specify critical dimensions and their tolerance ranges. Tighter tolerances may affect pricing and lead times.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Surface Finish</h4>
+                        <p>Describe required surface finish, coatings, or treatments such as anodizing, plating, or heat treating.</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Application Details</h4>
+                        <p>Understanding how the part will be used helps us recommend the best materials and manufacturing processes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3>Send Your Quote Request</h3>
+                <a href="mailto:andrewmylan@gmx.com?subject=Quote Request - Custom Machined Parts" class="email-link">
+                    andrewmylan@gmx.com
+                </a>
+                <p style="margin-top: 20px; color: #b0b0b0;">
+                    We typically respond to quote requests within 24-48 hours during business days.
+                </p>
+            </div>
+
+            <div class="tips-section">
+                <h3>Tips for Faster Quote Processing</h3>
+                <ul class="tips-list">
+                    <li>Include all relevant files in your initial email to avoid delays</li>
+                    <li>Use clear, descriptive file names for attachments</li>
+                    <li>Specify if this is a prototype, small batch, or production run</li>
+                    <li>Mention any preferred communication methods or times</li>
+                    <li>Include your company's payment terms if applicable</li>
+                    <li>Let us know if you have existing supplier relationships we should be aware of</li>
+                    <li>Provide context about your project timeline and flexibility</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mylan Machine LLC. Precision Machined Parts.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add subtle parallax effect to background patterns
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const patterns = document.querySelectorAll('.main-content::before, .fixed-header::before');
+            patterns.forEach(pattern => {
+                if (pattern) {
+                    pattern.style.transform = `translateY(${scrolled * 0.1}px)`;
+                }
+            });
+        });
+
+        // Copy email template functionality
+        const emailTemplate = document.querySelector('.email-body');
+        if (emailTemplate) {
+            emailTemplate.addEventListener('click', function() {
+                // Create a text area to copy the template
+                const textArea = document.createElement('textarea');
+                textArea.value = this.innerText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    // Visual feedback
+                    const originalBg = this.style.background;
+                    this.style.background = 'rgba(255, 107, 53, 0.2)';
+                    setTimeout(() => {
+                        this.style.background = originalBg;
+                    }, 500);
+                } catch (err) {
+                    console.log('Copy failed');
+                }
+                
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Performance optimization: Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial states for animated elements
+            document.querySelectorAll('.quote-section, .required-info, .contact-info, .tips-section').forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
